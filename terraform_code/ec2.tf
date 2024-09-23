@@ -1,4 +1,4 @@
-resource "aws_instance" "vpc_a_instance" {
+resource "aws_instance" "ansible_instance" {
     ami = "ami-06c68f701d8090592"
     instance_type = "t2.micro"
     subnet_id = aws_subnet.vpc_a_subnet_public_AZ1.id
@@ -6,7 +6,7 @@ resource "aws_instance" "vpc_a_instance" {
     iam_instance_profile = "CWAgent_ssm_role"
     key_name = "linux_key_pair"
     tags = {
-    Name = "vpc_a_instance"
+    Name = "my_web_app"
     OS = "linux"
   }
 } 
@@ -18,9 +18,9 @@ resource "aws_security_group" "vpc_a_public_instance_sg" {
   vpc_id      = aws_vpc.vpc_a.id
 
 ingress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "80"
+    from_port   = 80
+    to_port     = 80
+    protocol    = "TCP"
     cidr_blocks = ["0.0.0.0/0"]
 }
 
